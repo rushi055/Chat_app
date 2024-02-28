@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "993240701891",
+    "project_id": "chat-app-69842",
+    "storage_bucket": "chat-app-69842.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993240701891:android:2aba82482d22a4a5933b76",
+        "android_client_info": {
+          "package_name": "com.rushikesh.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlr2ajMDxzZHBTzUYSJoeRmbczDjB0RQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
