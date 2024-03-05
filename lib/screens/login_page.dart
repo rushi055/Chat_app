@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -7,6 +8,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  String email='';
+  String password='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,11 +78,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5.0,
                   child: MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ChatScreen()),
-                      );
+                    onPressed: () async {
+                      try{
+                        final newUser =await _auth.signInWithEmailAndPassword(email: email, password: password);
+                        if(newUser!=null){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ChatScreen()),
+                          );
+                        }
+                      }
+                      catch(e){
+                        print(e);
+                      }
                     },
                     minWidth: 200.0,
                     height: 42.0,

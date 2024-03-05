@@ -23,7 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
+              children:[
                 Container(
                   height: 400.0,
                   child: Image.asset('assets/register.png'),
@@ -71,22 +71,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 SizedBox(
                   height: 8.0,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      gapPadding: 4,
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 4.0,
-                      ),
-                    ),
-                    labelText: 'Conform entered your Password',
-                  ),
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                ),
+                // TextFormField(
+                //   decoration: InputDecoration(
+                //     border: OutlineInputBorder(
+                //       gapPadding: 4,
+                //       borderRadius: BorderRadius.circular(10),
+                //       borderSide: BorderSide(
+                //         color: Colors.blue,
+                //         width: 4.0,
+                //       ),
+                //     ),
+                //     labelText: 'Conform entered your Password',
+                //   ),
+                //   onChanged: (value) {
+                //     setState(() {});
+                //   },
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16.0),
                   child: Material(
