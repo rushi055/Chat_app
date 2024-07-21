@@ -1,4 +1,5 @@
 import 'package:chat_app/screens/chat_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,8 +11,9 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
 
-  String email='';
-  String password='';
+  String email = '';
+  String password = '';
+  bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children:[
+              children: [
                 Container(
                   height: 400.0,
                   child: Image.asset('assets/register.png'),
@@ -43,7 +45,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      email=value;
+                      email = value;
                     });
                   },
                 ),
@@ -64,29 +66,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      password=value;
+                      password = value;
                     });
                   },
                 ),
-                SizedBox(
-                  height: 8.0,
-                ),
-                // TextFormField(
-                //   decoration: InputDecoration(
-                //     border: OutlineInputBorder(
-                //       gapPadding: 4,
-                //       borderRadius: BorderRadius.circular(10),
-                //       borderSide: BorderSide(
-                //         color: Colors.blue,
-                //         width: 4.0,
-                //       ),
-                //     ),
-                //     labelText: 'Conform entered your Password',
-                //   ),
-                //   onChanged: (value) {
-                //     setState(() {});
-                //   },
-                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 16.0),
                   child: Material(
@@ -95,21 +78,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     elevation: 5.0,
                     child: MaterialButton(
                       onPressed: () async {
-                        try{
-                          final newUser =await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                          if(newUser!=null){
+                        try {
+                          final newUser =
+                              await _auth.createUserWithEmailAndPassword(
+                                  email: email, password: password);
+                          if (newUser != null) {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ChatScreen()),
-                              );
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatScreen()),
+                            );
                           }
-                        }
-                        catch(e){
+                        } catch (e) {
                           print(e);
                         }
                       },
                       minWidth: 200.0,
-                      height: 42.0,
+                      height: 30.0,
                       child: Text(
                         'Register',
                         style: TextStyle(color: Colors.white),
@@ -117,6 +102,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Text('Allready a User'),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegistrationScreen()),
+                        );
+                      },
+                      child: Text('Sign IN'))
+                ]),
               ],
             ),
           ),
