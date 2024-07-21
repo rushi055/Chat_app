@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'chat_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,8 +11,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
 
-  String email='';
-  String password='';
+  String email = '';
+  String password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children:[
+            children: [
               Container(
                 height: 400.0,
-               // width: 500,
+                // width: 500,
                 child: Image.asset('assets/login.png'),
               ),
-        
               TextFormField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
                       color: Colors.blue,
-                      width: 4.0,
+                      width: 10.0,
                     ),
                   ),
                   labelText: 'Enter your Username',
@@ -52,24 +52,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
                 child: TextFormField(
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        gapPadding: 4,
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          color: Colors.lightBlueAccent,
-                          width: 10.0,
-                        ),
+                    border: OutlineInputBorder(
+                      gapPadding: 4,
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.lightBlueAccent,
+                        width: 10.0,
                       ),
-                      labelText: 'Enter your Password',
-                      //contentPadding: EdgeInsets.symmetric(10)
                     ),
+                    labelText: 'Enter your Password',
+                    //contentPadding: EdgeInsets.symmetric(10)
+                  ),
                   onChanged: (value) {
                     setState(() {});
                   },
                 ),
               ),
               SizedBox(
-                height: 24.0,
+                height: 15.0,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -79,17 +79,45 @@ class _LoginScreenState extends State<LoginScreen> {
                   elevation: 5.0,
                   child: MaterialButton(
                     onPressed: () async {
-                      try{
-                        final newUser =await _auth.signInWithEmailAndPassword(email: email, password: password);
-                        if(newUser!=null){
+                      try {
+                        final newUser = await _auth.signInWithEmailAndPassword(
+                            email: email, password: password);
+                        if (newUser != null) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ChatScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => ChatScreen()),
                           );
                         }
-                      }
-                      catch(e){
-                        print(e);
+                      } catch (e) {
+                        //   showDialog(
+                        //     context: context,
+                        //     builder: (BuildContext context) {
+                        //       return AlertDialog(
+                        //         title: Text('User is not Registered'),
+                        //         content: Text('Please Sign In'),
+                        //         actions: [
+                        //           TextButton(
+                        //             onPressed: () {
+                        //               Navigator.of(context).pop(); // Close the dialog
+                        //             },
+                        //             child: Text('OK'),
+                        //           ),
+                        //         ],
+                        //       );
+                        //     },
+                        //   );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.white,
+                            content: Text(
+                              'User is not Registered , Please Sign In',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 17),
+                            ),
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
                       }
                     },
                     minWidth: 200.0,
@@ -100,6 +128,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegistrationScreen()),
+                    );
+                  },
+                  child: Text('Sign IN'))
             ],
           ),
         ),
